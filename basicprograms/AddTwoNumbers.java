@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
-public class Add {
-    public static void main(String[] args){
+public class AddTwoNumbers {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Enter first number: ");
@@ -11,6 +11,6 @@ public class Add {
         int b = sc.nextInt();
 
         System.out.print("The sum is: ");
-        System.out.println(a+b);
+        System.out.println(a + b);
     }
 }
