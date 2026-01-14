@@ -10,6 +10,5 @@ public class Side_Of_Square {
         double side = perimeter / 4;
 
         System.out.println("The length of the side is " + side+" whose perimeter is " + perimeter);
-        System.out.println();
     }
 }
