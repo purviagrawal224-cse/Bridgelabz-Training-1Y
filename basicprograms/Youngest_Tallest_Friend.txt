@@ -1,0 +1,26 @@
+import java.util.Scanner;
+
+public class Youngest_Tallest_Friend {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter friend1 age : ");
+        int age1 = sc.nextInt();
+        System.out.print("Enter friend2 age : ");
+        int age2 = sc.nextInt();
+        System.out.print("Enter friend3 age : ");
+        int age3 = sc.nextInt();
+        System.out.print("Enter friend1 height : ");
+        int h1 = sc.nextInt();
+        System.out.print("Enter friend2 height : ");
+        int h2 = sc.nextInt();
+        System.out.print("Enter friend3 height : ");
+        int h3 = sc.nextInt();
+        if(age1<=age2 && age1 <=age3) System.out.println("Friend 1 is youngest");
+        else if(age2<=age1 && age2<=age3) System.out.println("Friend 2 is youngest");
+        else System.out.println("Friend 3 is youngest");
+        if(h1>=h2 && h1>=h3) System.out.println("Friend 1 is tallest");
+        else if(h2>=h1 && h2 >= h3) System.out.println("Friend 2 is tallest");
+        else System.out.println("Friend 3 is tallest");
+
+    }
+}
