@@ -5,6 +5,7 @@ public class Largest_First_Second_Digit {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter number : ");
         int n = sc.nextInt();
+        n = Math.abs(n);
         if(n==0){
             System.out.println("Largest digit is "+n);
             System.out.println("Second largest does not exist");
