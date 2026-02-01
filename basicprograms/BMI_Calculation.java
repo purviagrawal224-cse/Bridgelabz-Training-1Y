@@ -23,7 +23,7 @@ public class BMI_Calculation {
         }
         for(int i=0; i<n; i++){
             bmi[i] = w[i]/(h[i]*h[i]);
-            if(bmi[i]< 18.4) status[i] = "Underweight";
+            if(bmi[i]<= 18.4) status[i] = "Underweight";
             else if(bmi[i]<= 24.9) status[i] = "Normal";
             else if(bmi[i]<=39.9) status[i] = "Overweight";
             else status[i] = "Obese";
