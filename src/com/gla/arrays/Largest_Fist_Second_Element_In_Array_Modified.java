@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Largest_Fist_Second_Element_Modified {
+public class Largest_Fist_Second_Element_In_Array_Modified {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter number : ");
