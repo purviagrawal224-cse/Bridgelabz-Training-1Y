@@ -1,5 +1,3 @@
-package com.gla.arrays;
-
 import java.util.Scanner;
 
 public class Applicable_For_Vote {
