@@ -11,21 +11,21 @@ public class Trim_String_Using_CharAt {
             }
         } catch (Exception e) {
         }
-        while (st < len && str.charAt(st) == ' ') st++;
+        while (st<len && str.charAt(st)==' ') st++;
         end = len - 1;
         while (end >= 0 && str.charAt(end) == ' ') end--;
         return new int[]{st, end};
     }
     public static String substringUsingCharAt(String str, int start, int end) {
         String result = "";
-        for (int i = start; i <= end; i++) result += str.charAt(i);
+        for (int i=start; i <=end; i++) result += str.charAt(i);
         return result;
     }
     public static boolean compareStrings(String s1, String s2) {
         int i = 0;
         try {
             while (true) {
-                if (s1.charAt(i) != s2.charAt(i)) return false;
+                if (s1.charAt(i)!=s2.charAt(i)) return false;
                 i++;
             }
         } catch (Exception e) {
