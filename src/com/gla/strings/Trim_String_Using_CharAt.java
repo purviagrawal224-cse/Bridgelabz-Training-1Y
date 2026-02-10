@@ -42,7 +42,8 @@ public class Trim_String_Using_CharAt {
         System.out.print("Enter text: ");
         String txt = sc.nextLine();
         int[] idx = findTrimIndexes(txt);
-        String trimmed_Cus = substringUsingCharAt(txt, idx[0], idx[1]);
+        String trimmed_Cus = "";
+        if (idx[0] <= idx[1]) trimmed_Cus = substringUsingCharAt(txt, idx[0], idx[1]);
         String trimmed_BuiltIn = txt.trim();
         boolean isSame = compareStrings(trimmed_Cus, trimmed_BuiltIn);
         System.out.println("Custom Trimmed: [" + trimmed_Cus + "]");
