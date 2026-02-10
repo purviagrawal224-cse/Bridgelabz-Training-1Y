@@ -4,7 +4,7 @@ public class Student_Grade_Calculation {
     public static int[][] generateScores(int n) {
         Random rd = new Random();
         int[][] pcm = new int[n][3];
-        for (int i = 0; i < n; i++) {
+        for (int i=0; i<n; i++) {
             pcm[i][0] = rd.nextInt(90) + 10;
             pcm[i][1] = rd.nextInt(90) + 10;
             pcm[i][2] = rd.nextInt(90) + 10;
