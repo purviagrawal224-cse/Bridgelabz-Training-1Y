@@ -25,7 +25,7 @@ public class Student_Grade_Calculation {
     }
     public static String[] calculate_Grade(double[][] res) {
         String[] grade = new String[res.length];
-        for (int i = 0; i < res.length; i++) {
+        for (int i=0; i<res.length; i++) {
             double per = res[i][2];
             if (per >= 80) grade[i] = "A";
             else if (per >= 70) grade[i] = "B";
