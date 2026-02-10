@@ -4,7 +4,7 @@ public class Student_Grade_Calculation {
     public static int[][] generateScores(int n) {
         Random rd = new Random();
         int[][] pcm = new int[n][3];
-        for (int i = 0; i < n; i++) {
+        for (int i=0; i<n; i++) {
             pcm[i][0] = rd.nextInt(90) + 10;
             pcm[i][1] = rd.nextInt(90) + 10;
             pcm[i][2] = rd.nextInt(90) + 10;
@@ -25,7 +25,7 @@ public class Student_Grade_Calculation {
     }
     public static String[] calculate_Grade(double[][] res) {
         String[] grade = new String[res.length];
-        for (int i = 0; i < res.length; i++) {
+        for (int i=0; i<res.length; i++) {
             double per = res[i][2];
             if (per >= 80) grade[i] = "A";
             else if (per >= 70) grade[i] = "B";
@@ -39,17 +39,7 @@ public class Student_Grade_Calculation {
     public static void display_Scorecard(int[][] pcm, double[][] res, String[] grade) {
         System.out.println("Phy\tChem\tMath\tTotal\tAvg\t%\tGrade");
 
-        for (int i = 0; i < pcm.length; i++) {
-            System.out.println(
-                    pcm[i][0] + "\t" +
-                            pcm[i][1] + "\t" +
-                            pcm[i][2] + "\t" +
-                            res[i][0] + "\t" +
-                            res[i][1] + "\t" +
-                            res[i][2] + "\t" +
-                            grade[i]
-            );
-        }
+        for (int i = 0; i < pcm.length; i++) System.out.println(pcm[i][0]+"\t" +pcm[i][1]+"\t"+pcm[i][2]+"\t"+res[i][0]+"\t"+res[i][1]+"\t"+res[i][2]+"\t"+grade[i]);
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
