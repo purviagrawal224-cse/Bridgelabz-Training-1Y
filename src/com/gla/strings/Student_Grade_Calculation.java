@@ -39,17 +39,7 @@ public class Student_Grade_Calculation {
     public static void display_Scorecard(int[][] pcm, double[][] res, String[] grade) {
         System.out.println("Phy\tChem\tMath\tTotal\tAvg\t%\tGrade");
 
-        for (int i = 0; i < pcm.length; i++) {
-            System.out.println(
-                    pcm[i][0] + "\t" +
-                            pcm[i][1] + "\t" +
-                            pcm[i][2] + "\t" +
-                            res[i][0] + "\t" +
-                            res[i][1] + "\t" +
-                            res[i][2] + "\t" +
-                            grade[i]
-            );
-        }
+        for (int i = 0; i < pcm.length; i++) System.out.println(pcm[i][0]+"\t" +pcm[i][1]+"\t"+pcm[i][2]+"\t"+res[i][0]+"\t"+res[i][1]+"\t"+res[i][2]+"\t"+grade[i]);
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
