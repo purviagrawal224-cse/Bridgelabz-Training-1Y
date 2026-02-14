@@ -9,7 +9,7 @@ public class Leap_Year {
         sc.close();
     }
     public static boolean isLeapYear(int year) {
-        if (year < 1582) {
+        if (year<1582) {
             System.out.println("Leap year calculation works only for year >= 1582.");
             return false;
         }
