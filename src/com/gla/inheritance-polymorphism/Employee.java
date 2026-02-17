@@ -10,9 +10,9 @@ class Employee {
         this.s = s;
     }
     void displayDetails() {
-        System.out.println("Name: " + n);
-        System.out.println("ID: " + id);
-        System.out.println("Salary: " + s);
+        System.out.println("Name : " + n);
+        System.out.println("ID : " + id);
+        System.out.println("Salary : " + s);
     }
 }
 class Manager extends Employee {
@@ -23,7 +23,7 @@ class Manager extends Employee {
     }
     void displayDetails() {
         super.displayDetails();
-        System.out.println("Team Size: " + ts);
+        System.out.println("Team Size : " + ts);
     }
 }
 class Developer extends Employee {
@@ -34,7 +34,7 @@ class Developer extends Employee {
     }
     void displayDetails() {
         super.displayDetails();
-        System.out.println("Programming Language: " + pl);
+        System.out.println("Programming Language : " + pl);
     }
 }
 class Intern extends Employee {
@@ -45,7 +45,7 @@ class Intern extends Employee {
     }
     void displayDetails() {
         super.displayDetails();
-        System.out.println("Duration (months): " + d);
+        System.out.println("Duration (months) : " + d);
     }
 }
 public class Main {
@@ -53,26 +53,26 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter type (manager/developer/intern): ");
         String t = sc.nextLine().toLowerCase();
-        System.out.print("Enter name: ");
+        System.out.print("Enter name : ");
         String n = sc.nextLine();
-        System.out.print("Enter id: ");
+        System.out.print("Enter id : ");
         int id = sc.nextInt();
-        System.out.print("Enter salary: ");
+        System.out.print("Enter salary : ");
         double s = sc.nextDouble();
         sc.nextLine();
         Employee ob;
         if(t.equals("manager")) {
-            System.out.print("Enter team size: ");
+            System.out.print("Enter team size : ");
             int ts = sc.nextInt();
             ob = new Manager(n, id, s, ts);
         }
         else if(t.equals("developer")) {
-            System.out.print("Enter programming language: ");
+            System.out.print("Enter programming language : ");
             String pl = sc.nextLine();
             ob = new Developer(n, id, s, pl);
         }
         else {
-            System.out.print("Enter internship duration (months): ");
+            System.out.print("Enter internship duration (months) : ");
             int d = sc.nextInt();
             ob = new Intern(n, id, s, d);
         }
