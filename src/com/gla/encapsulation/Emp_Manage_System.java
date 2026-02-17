@@ -18,7 +18,6 @@ abstract class Emp {
         System.out.println("Name : " + nm);
     }
 }
-
 interface Dept {
     void setDept(String d);
     String getDept();
@@ -72,7 +71,6 @@ public class Emp_Manage_System {
             int h = sc.nextInt();
             sc.nextLine();
             Emp e;
-
             if (ch == 1) {
                 System.out.print("Base salary : ");
                 double bs = sc.nextDouble();
@@ -83,12 +81,12 @@ public class Emp_Manage_System {
             ((Dept) e).setDept(d);
             list.add(e);
         }
-        System.out.println("\n----- Employee Details -----");
+        System.out.println("\n---Employee Details---");
         for (Emp e : list) {
             e.show();
-            System.out.println("Dept   : " + ((Dept) e).getDept());
-            System.out.println("Salary : " + e.calSal());
-            System.out.println("----------------------------");
+            System.out.println("Dept   : "+((Dept) e).getDept());
+            System.out.println("Salary : "+e.calSal());
+            System.out.println("---");
         }
         sc.close();
     }
