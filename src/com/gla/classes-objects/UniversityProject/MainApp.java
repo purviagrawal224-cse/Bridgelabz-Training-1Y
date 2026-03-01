@@ -8,7 +8,7 @@ public class MainApp {
         System.out.print("Enter course code: ");
         int c = sc.nextInt();
         Course obj = new Course(n, c);
-        System.out.println("\n--- Course Details ---");
+        System.out.println("\n--Course Details-- ");
         obj.show();
         sc.close();
     }
