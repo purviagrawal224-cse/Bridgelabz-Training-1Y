@@ -1,66 +1,50 @@
 import java.util.*;
 abstract class CourseType {
-    String n;
-    CourseType(String n) {
-        this.n = n;
-    }
-    void show() {
-        System.out.println(n);
-    }
+    abstract String type();
 }
 class ExamCourse extends CourseType {
-    ExamCourse(String n) {
-        super(n);
+    String type() {
+        return "Exam-Based";
     }
 }
 class AssignmentCourse extends CourseType {
-    AssignmentCourse(String n) {
-        super(n);
+    String type() {
+        return "Assignment-Based";
     }
 }
 class ResearchCourse extends CourseType {
-    ResearchCourse(String n) {
-        super(n);
+    String type() {
+        return "Research-Based";
     }
 }
 class Course<T extends CourseType> {
-    ArrayList<T> l = new ArrayList<>();
-    void addCourse(T x) {
-        l.add(x);
+    T c;
+    Course(T c) {
+        this.c = c;
     }
-    void displayCourses() {
-        for (T i : l) {
-            i.show();
-        }
+    void show() {
+        System.out.println("Course Type: " + c.type());
     }
 }
 public class CourseManagement {
-    static void displayAll(List<? extends CourseType> l) {
-        for (CourseType x : l) {
-            x.show();
-        }
+    static <T extends CourseType> void addCourse(T c) {
+        Course<T> course = new Course<>(c);
+        course.show();
+    }
+    static void displayAll(List<? extends CourseType> list) {
+        for (CourseType c : list) System.out.println("Available: " + c.type());
     }
     public static void main(String[] args) {
-        Course<ExamCourse> e = new Course<>();
-        e.addCourse(new ExamCourse("Math Exam"));
-        e.addCourse(new ExamCourse("Physics Exam"));
-        Course<AssignmentCourse> a = new Course<>();
-        a.addCourse(new AssignmentCourse("Java Assignment"));
-        a.addCourse(new AssignmentCourse("DBMS Assignment"));
-        Course<ResearchCourse> r = new Course<>();
-        r.addCourse(new ResearchCourse("AI Research"));
-        r.addCourse(new ResearchCourse("ML Research"));
-        System.out.println("Exam Courses:");
-        e.displayCourses();
-        System.out.println("Assignment Courses:");
-        a.displayCourses();
-        System.out.println("Research Courses:");
-        r.displayCourses();
-        System.out.println("Using Wildcard:");
-        displayAll(Arrays.asList(
-                new ExamCourse("Chemistry Exam"),
-                new AssignmentCourse("OS Assignment"),
-                new ResearchCourse("Data Science Research")
-        ));
+        Scanner sc = new Scanner(System.in);
+        List<CourseType> list = new ArrayList<>();
+        int n = sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            int ch = sc.nextInt();
+            if (ch == 1) list.add(new ExamCourse());
+            else if (ch == 2) list.add(new AssignmentCourse());
+            else if (ch == 3) list.add(new ResearchCourse());
+        }
+        for (CourseType c : list) addCourse(c);
+        displayAll(list);
     }
 }
