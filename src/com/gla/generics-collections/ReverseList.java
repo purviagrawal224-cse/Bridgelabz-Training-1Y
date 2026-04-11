@@ -1,21 +1,15 @@
 import java.util.*;
-public class ReverseList {
-    static <T> void reverse(List<T> l) {
-        int i = 0, j = l.size() - 1;
-        while(i<j){
-            T temp = l.get(i);
-            l.set(i, l.get(j));
-            l.set(j, temp);
-            i++;
-            j--;
-        }
-    }
+public class RotateList {
     public static void main(String[] args) {
-        List<Integer> a = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
-        reverse(a);
-        System.out.println(a);
-        List<Integer> b = new LinkedList<>(Arrays.asList(1, 2, 3, 4, 5));
-        reverse(b);
-        System.out.println(b);
+        Scanner sc = new Scanner(System.in);
+        List<Integer> list = new ArrayList<>();
+        int n = sc.nextInt();
+        for (int i = 0; i < n; i++) list.add(sc.nextInt());
+        int k = sc.nextInt();
+        k = k % n;
+        List<Integer> res = new ArrayList<>();
+        for (int i = k; i < n; i++) res.add(list.get(i));
+        for (int i = 0; i < k; i++) res.add(list.get(i));
+        System.out.println(res);
     }
 }
