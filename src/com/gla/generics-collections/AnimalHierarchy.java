@@ -1,33 +1,37 @@
 import java.util.*;
 class Animal {
-    String n;
-    Animal(String n) {
-        this.n = n;
+    String name;
+    Animal(String name) {
+        this.name = name;
     }
-    void show() {
-        System.out.println(n);
+    public String toString() {
+        return name;
     }
 }
 class Dog extends Animal {
-    Dog(String n) {
-        super(n);
+    Dog(String name) {
+        super(name);
     }
 }
 class Cat extends Animal {
-    Cat(String n) {
-        super(n);
+    Cat(String name) {
+        super(name);
     }
 }
 public class AnimalHierarchy {
-    static void printAnimals(List<? extends Animal> a) {
-        for (Animal x : a) {
-            x.show();
+    static void printAnimals(List<? extends Animal> animals) {
+        for (Animal a : animals) {
+            System.out.println(a);
         }
     }
     public static void main(String[] args) {
-        List<Dog> d = Arrays.asList(new Dog("Dog1"), new Dog("Dog2"));
-        List<Cat> c = Arrays.asList(new Cat("Cat1"), new Cat("Cat2"));
-        printAnimals(d);
-        printAnimals(c);
+        List<Dog> dogs = new ArrayList<>();
+        dogs.add(new Dog("Tommy"));
+        dogs.add(new Dog("Rocky"));
+        List<Cat> cats = new ArrayList<>();
+        cats.add(new Cat("Kitty"));
+        cats.add(new Cat("Mimi"));
+        printAnimals(dogs);
+        printAnimals(cats);
     }
 }
