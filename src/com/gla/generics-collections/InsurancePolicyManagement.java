@@ -1,79 +1,78 @@
 import java.util.*;
 import java.time.*;
 class Policy implements Comparable<Policy> {
-    int id;
-    String name;
+    String num, name, type;
     LocalDate exp;
-    String type;
-    double premium;
-    Policy(int id, String name, LocalDate exp, String type, double premium) {
-        this.id = id;
+    double amt;
+    Policy(String num, String name, LocalDate exp, String type, double amt) {
+        this.num = num;
         this.name = name;
         this.exp = exp;
         this.type = type;
-        this.premium = premium;
-    }
-    public int compareTo(Policy o) {
-        return this.exp.compareTo(o.exp);
+        this.amt = amt;
     }
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Policy)) return false;
         Policy p = (Policy) o;
-        return id == p.id;
+        return num.equals(p.num);
     }
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(num);
+    }
+    public int compareTo(Policy o) {
+        return this.exp.compareTo(o.exp);
     }
     public String toString() {
-        return id + " " + name + " " + exp + " " + type + " " + premium;
+        return num + " " + name + " " + exp + " " + type + " " + amt;
     }
 }
-public class InsurancePolicyManagement {
-    static void display(Set<Policy> s) {
-        for (Policy p : s) System.out.println(p);
-    }
-    static void expiringSoon(Set<Policy> s) {
-        LocalDate now = LocalDate.now();
-        LocalDate next = now.plusDays(30);
-        for (Policy p : s) {
-            if (!p.exp.isBefore(now) && !p.exp.isAfter(next)) System.out.println(p);
-        }
-    }
-    static void byType(Set<Policy> s, String t) {
-        for (Policy p : s) {
-            if (p.type.equalsIgnoreCase(t)) System.out.println(p);
-        }
-    }
+public class InsurancePolicyManagementSystem {
     public static void main(String[] args) {
-        Set<Policy> h = new HashSet<>();
-        Set<Policy> l = new LinkedHashSet<>();
-        Set<Policy> t = new TreeSet<>();
-        Policy p1 = new Policy(1, "A", LocalDate.now().plusDays(10), "Health", 5000);
-        Policy p2 = new Policy(2, "B", LocalDate.now().plusDays(40), "Auto", 3000);
-        Policy p3 = new Policy(3, "C", LocalDate.now().plusDays(20), "Home", 4000);
-        Policy p4 = new Policy(1, "D", LocalDate.now().plusDays(5), "Health", 6000);
-        Collections.addAll(h, p1, p2, p3, p4);
-        Collections.addAll(l, p1, p2, p3, p4);
-        Collections.addAll(t, p1, p2, p3, p4);
-        System.out.println("All Policies (HashSet):");
-        display(h);
-        System.out.println("Expiring Soon:");
-        expiringSoon(h);
-        System.out.println("Health Policies:");
-        byType(h, "Health");
-        long start, end;
-        start = System.nanoTime();
-        h.contains(p2);
-        end = System.nanoTime();
-        System.out.println("HashSet search: " + (end - start));
-        start = System.nanoTime();
-        l.contains(p2);
-        end = System.nanoTime();
-        System.out.println("LinkedHashSet search: " + (end - start));
-        start = System.nanoTime();
-        t.contains(p2);
-        end = System.nanoTime();
-        System.out.println("TreeSet search: " + (end - start));
+        Scanner sc = new Scanner(System.in);
+        Set<Policy> hash = new HashSet<>();
+        Set<Policy> linked = new LinkedHashSet<>();
+        Set<Policy> tree = new TreeSet<>();
+        List<Policy> duplicates = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < n; i++) {
+            String num = sc.nextLine();
+            String name = sc.nextLine();
+            LocalDate date = LocalDate.parse(sc.nextLine());
+            String type = sc.nextLine();
+            double amt = sc.nextDouble();
+            sc.nextLine();
+            Policy p = new Policy(num, name, date, type, amt);
+            if (!hash.add(p)) duplicates.add(p);
+            else{
+                linked.add(p);
+                tree.add(p);
+            }
+        }
+        for (Policy p : hash) System.out.println(p);
+        for (Policy p : linked) System.out.println(p);
+        for (Policy p : tree) System.out.println(p);
+        LocalDate now = LocalDate.now();
+        for (Policy p : tree) {
+            if (!p.exp.isBefore(now) && p.exp.isBefore(now.plusDays(30))) System.out.println(p);
+        }
+        String search = sc.nextLine();
+        for (Policy p : hash) {
+            if (p.type.equalsIgnoreCase(search)) System.out.println(p);
+        }
+        for (Policy p : duplicates) System.out.println(p);
+        long t1 = System.nanoTime();
+        hash.containsAll(hash);
+        long t2 = System.nanoTime();
+        long t3 = System.nanoTime();
+        linked.containsAll(linked);
+        long t4 = System.nanoTime();
+        long t5 = System.nanoTime();
+        tree.containsAll(tree);
+        long t6 = System.nanoTime();
+        System.out.println(t2 - t1);
+        System.out.println(t4 - t3);
+        System.out.println(t6 - t5);
     }
 }
