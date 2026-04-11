@@ -10,18 +10,34 @@ class Book {
 }
 public class LibraryManagementSystem {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         List<Book> books = new ArrayList<>();
         Set<String> members = new HashSet<>();
         Queue<Book> issueQ = new LinkedList<>();
         Stack<Book> returned = new Stack<>();
-        books.add(new Book("Java"));
-        books.add(new Book("DSA"));
-        books.add(new Book("OS"));
-        members.add("M1");
-        members.add("M2");
-        members.add("M1");
-        issueQ.add(books.get(0));
-        issueQ.add(books.get(1));
+        System.out.print("Enter number of books: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < n; i++) {
+            String name = sc.nextLine();
+            books.add(new Book(name));
+        }
+        System.out.print("Enter number of members: ");
+        int m = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < m; i++) {
+            String id = sc.nextLine();
+            if (!members.add(id)) System.out.println("Duplicate member ignored: " + id);
+        }
+        System.out.print("Enter number of books to issue: ");
+        int k = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < k; i++) {
+            String name = sc.nextLine();
+            for (Book b : books) {
+                if (b.name.equals(name))  issueQ.add(b);
+            }
+        }
         System.out.println("Issuing Books:");
         while (!issueQ.isEmpty()) {
             Book b = issueQ.remove();
@@ -29,15 +45,6 @@ public class LibraryManagementSystem {
             returned.push(b);
         }
         System.out.println("Re-issuing Last Returned Book:");
-        if (!returned.isEmpty()) {
-            Book b = returned.pop();
-            System.out.println("Re-issued: " + b);
-        }
-        System.out.println("All Books:");
-        for (Book b : books) System.out.println(b);
-        System.out.println("Members:");
-        for (String m : members) {
-            System.out.println(m);
-        }
+        if (!returned.isEmpty()) System.out.println("Re-issued: " + returned.pop());
     }
 }
