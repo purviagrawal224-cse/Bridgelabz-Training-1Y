@@ -1,15 +1,13 @@
 import java.util.*;
-public class FindFreq {
-    static Map<String, Integer> findFreq(List<String> l) {
-        Map<String, Integer> m = new HashMap<>();
-        for (String s : l) {
-            m.put(s, m.getOrDefault(s, 0) + 1);
-        }
-
-        return m;
-    }
+public class findfreq {
     public static void main(String[] args) {
-        List<String> l = Arrays.asList("apple", "banana", "apple", "orange");
-        System.out.println(findFreq(l));
+        Scanner sc = new Scanner(System.in);
+        List<String> list = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < n; i++) list.add(sc.nextLine());
+        Map<String, Integer> map = new HashMap<>();
+        for (String s : list) map.put(s, map.getOrDefault(s, 0) + 1);
+        System.out.println(map);
     }
 }
