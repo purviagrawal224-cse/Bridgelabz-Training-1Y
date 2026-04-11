@@ -31,12 +31,22 @@ class Cart<T> {
 }
 public class GenericCart {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         Cart<Electronics> eCart = new Cart<>();
         Cart<Clothing> cCart = new Cart<>();
-        eCart.addItem(new Electronics("Mobile"));
-        eCart.addItem(new Electronics("Laptop"));
-        cCart.addItem(new Clothing("Shirt"));
-        cCart.addItem(new Clothing("Jeans"));
+        int n = sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            int ch = sc.nextInt();
+            sc.nextLine();
+            if (ch == 1) {
+                String name = sc.nextLine();
+                eCart.addItem(new Electronics(name));
+            }
+            else if (ch == 2) {
+                String name = sc.nextLine();
+                cCart.addItem(new Clothing(name));
+            }
+        }
         eCart.displayItems();
         cCart.displayItems();
     }
