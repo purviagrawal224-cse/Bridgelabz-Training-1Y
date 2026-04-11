@@ -1,71 +1,50 @@
 import java.util.*;
 abstract class JobRole {
-    String n;
-    JobRole(String n) {
-        this.n = n;
-    }
-    void show() {
-        System.out.println(n);
-    }
+    abstract String role();
 }
 class SoftwareEngineer extends JobRole {
-    SoftwareEngineer(String n) {
-        super(n);
+    String role() {
+        return "Software Engineer";
     }
 }
 class DataScientist extends JobRole {
-    DataScientist(String n) {
-        super(n);
+    String role() {
+        return "Data Scientist";
     }
 }
 class ProductManager extends JobRole {
-    ProductManager(String n) {
-        super(n);
+    String role() {
+        return "Product Manager";
     }
 }
 class Resume<T extends JobRole> {
-    ArrayList<T> l = new ArrayList<>();
-    void addResume(T x) {
-        l.add(x);
+    T job;
+    Resume(T job) {
+        this.job = job;
     }
-    void displayResumes() {
-        for (T i : l) {
-            i.show();
-        }
+    void process() {
+        System.out.println("Processing for: " + job.role());
     }
 }
-public class AIResume {
-    static <T extends JobRole> void processResume(T r) {
-        r.show();
+public class ResumeScreeningSystem {
+    static <T extends JobRole> void screenResume(T job) {
+        Resume<T> r = new Resume<>(job);
+        r.process();
     }
-    static void screening(List<? extends JobRole> l) {
-        for (JobRole x : l) {
-            x.show();
-        }
+    static void pipeline(List<? extends JobRole> list) {
+        for (JobRole j : list) System.out.println("Pipeline: " + j.role());
     }
     public static void main(String[] args) {
-        Resume<SoftwareEngineer> se = new Resume<>();
-        se.addResume(new SoftwareEngineer("SE Candidate 1"));
-        se.addResume(new SoftwareEngineer("SE Candidate 2"));
-        Resume<DataScientist> ds = new Resume<>();
-        ds.addResume(new DataScientist("DS Candidate 1"));
-        ds.addResume(new DataScientist("DS Candidate 2"));
-        Resume<ProductManager> pm = new Resume<>();
-        pm.addResume(new ProductManager("PM Candidate 1"));
-        pm.addResume(new ProductManager("PM Candidate 2"));
-        System.out.println("Software Engineers:");
-        se.displayResumes();
-        System.out.println("Data Scientists:");
-        ds.displayResumes();
-        System.out.println("Product Managers:");
-        pm.displayResumes();
-        System.out.println("Processing:");
-        processResume(new SoftwareEngineer("SE Candidate 3"));
-        System.out.println("Screening Pipeline:");
-        screening(Arrays.asList(
-                new SoftwareEngineer("SE Candidate X"),
-                new DataScientist("DS Candidate X"),
-                new ProductManager("PM Candidate X")
-        ));
+        Scanner sc = new Scanner(System.in);
+        List<JobRole> list = new ArrayList<>();
+        int n = sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            int ch = sc.nextInt();
+            if (ch == 1) list.add(new SoftwareEngineer());
+            else if (ch == 2) list.add(new DataScientist());
+            else if (ch == 3) list.add(new ProductManager());
+        }
+        for (JobRole j : list) screenResume(j);
+        pipeline(list);
     }
 }
