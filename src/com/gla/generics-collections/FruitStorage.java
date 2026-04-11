@@ -1,39 +1,46 @@
-import java.util.ArrayList;
+import java.util.*;
 class Fruit {
-    String n;
-    Fruit(String n) {
-        this.n = n;
+    String name;
+    Fruit(String name) {
+        this.name = name;
     }
-    void show() {
-        System.out.println(n);
+    public String toString() {
+        return name;
     }
 }
 class Apple extends Fruit {
-    Apple(String n) {
-        super(n);
+    Apple(String name) {
+        super(name);
     }
 }
 class Mango extends Fruit {
-    Mango(String n) {
-        super(n);
+    Mango(String name) {
+        super(name);
     }
 }
-class Box<T extends Fruit> {
-    ArrayList<T> l = new ArrayList<>();
-    void add(T x) {
-        l.add(x);
+class FruitBox<T extends Fruit> {
+    List<T> list = new ArrayList<>();
+    void add(T f) {
+        list.add(f);
     }
-    void display() {
-        for (T i : l) {
-            i.show();
-        }
+    void show() {
+        for (T f : list) System.out.println(f);
     }
 }
 public class FruitStorage {
     public static void main(String[] args) {
-        Box<Fruit> b = new Box<>();
-        b.add(new Apple("Apple"));
-        b.add(new Mango("Mango"));
-        b.display();
+        Scanner sc = new Scanner(System.in);
+        FruitBox<Apple> apples = new FruitBox<>();
+        FruitBox<Mango> mangoes = new FruitBox<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < n; i++) {
+            int ch = sc.nextInt();
+            sc.nextLine();
+            if (ch == 1) apples.add(new Apple(sc.nextLine()));
+            else if (ch == 2) mangoes.add(new Mango(sc.nextLine()));
+        }
+        apples.show();
+        mangoes.show();
     }
 }
