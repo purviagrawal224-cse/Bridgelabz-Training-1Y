@@ -1,9 +1,13 @@
 import java.util.*;
-
 class Player {
     String name;
+    int score;
     Player(String name) {
         this.name = name;
+        this.score = 0;
+    }
+    public String toString() {
+        return name + " " + score;
     }
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -14,9 +18,6 @@ class Player {
     public int hashCode() {
         return Objects.hash(name);
     }
-    public String toString() {
-        return name;
-    }
 }
 class Match {
     Player p1, p2;
@@ -25,54 +26,58 @@ class Match {
         this.p2 = p2;
     }
 }
-class Result {
-    String winner;
-    Result(String winner) {
-        this.winner = winner;
-    }
-    public String toString() {
-        return "Winner: " + winner;
-    }
-}
 class Score implements Comparable<Score> {
     String name;
-    int pts;
-    Score(String name, int pts) {
+    int score;
+    Score(String name, int score) {
         this.name = name;
-        this.pts = pts;
+        this.score = score;
     }
     public int compareTo(Score o) {
-        if (o.pts != this.pts) return o.pts - this.pts;
+        if (o.score != this.score) return o.score - this.score;
         return this.name.compareTo(o.name);
     }
     public String toString() {
-        return name + " " + pts;
+        return name + " " + score;
     }
 }
 public class OnlineGamingTournamentTracker {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         Set<Player> players = new HashSet<>();
-        players.add(new Player("A"));
-        players.add(new Player("B"));
-        players.add(new Player("C"));
-        players.add(new Player("A"));
+        Map<String, Player> map = new HashMap<>();
         Queue<Match> q = new LinkedList<>();
-        List<Player> list = new ArrayList<>(players);
-        q.add(new Match(list.get(0), list.get(1)));
-        q.add(new Match(list.get(1), list.get(2)));
-        List<Result> results = new ArrayList<>();
-        TreeSet<Score> leaderboard = new TreeSet<>();
-        Map<String, Integer> map = new HashMap<>();
-        while (!q.isEmpty()) {
-            Match m = q.remove();
-            String win = m.p1.name;
-            System.out.println("Match: " + m.p1 + " vs " + m.p2 + " -> " + win);
-            results.add(new Result(win));
-            map.put(win, map.getOrDefault(win, 0) + 10);
+        List<String> results = new ArrayList<>();
+        System.out.print("Enter number of players: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < n; i++) {
+            String name = sc.nextLine();
+            Player p = new Player(name);
+            if (players.add(p)) map.put(name, p);
+            else System.out.println("Duplicate player ignored: " + name);
         }
-        for (Map.Entry<String, Integer> e : map.entrySet()) leaderboard.add(new Score(e.getKey(), e.getValue()));
+        System.out.print("Enter number of matches: ");
+        int m = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < m; i++) {
+            String p1 = sc.nextLine();
+            String p2 = sc.nextLine();
+            q.add(new Match(map.get(p1), map.get(p2)));
+        }
+        System.out.println("Processing Matches:");
+        while (!q.isEmpty()) {
+            Match match = q.remove();
+            System.out.println("Enter winner for: " + match.p1.name + " vs " + match.p2.name);
+            String w = sc.nextLine();
+            Player win = map.get(w);
+            win.score += 10;
+            results.add("Winner: " + w);
+        }
+        TreeSet<Score> leaderboard = new TreeSet<>();
+        for (Player p : players) leaderboard.add(new Score(p.name, p.score));
         System.out.println("Results:");
-        for (Result r : results) System.out.println(r);
+        for (String r : results) System.out.println(r);
         System.out.println("Leaderboard:");
         for (Score s : leaderboard) System.out.println(s);
     }
