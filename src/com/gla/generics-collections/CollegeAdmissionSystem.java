@@ -6,6 +6,9 @@ class Student implements Comparable<Student> {
         this.name = name;
         this.marks = marks;
     }
+    public String toString() {
+        return name + " " + marks;
+    }
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Student)) return false;
@@ -19,28 +22,38 @@ class Student implements Comparable<Student> {
         if (o.marks != this.marks) return o.marks - this.marks;
         return this.name.compareTo(o.name);
     }
-    public String toString() {
-        return name + " " + marks;
-    }
 }
 public class CollegeAdmissionSystem {
     public static void main(String[] args) {
-        List<Student> all = new ArrayList<>();
-        all.add(new Student("A", 85));
-        all.add(new Student("B", 70));
-        all.add(new Student("C", 90));
-        all.add(new Student("A", 85));
+        Scanner sc = new Scanner(System.in);
+        List<Student> applicants = new ArrayList<>();
         Set<Student> shortlisted = new HashSet<>();
-        for (Student s : all) {
-            if (s.marks >= 75) shortlisted.add(s);
-        }
-        Queue<Student> q = new LinkedList<>(shortlisted);
+        Queue<Student> interviewQ = new LinkedList<>();
         TreeSet<Student> merit = new TreeSet<>();
+        System.out.print("Enter number of applicants: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < n; i++) {
+            String name = sc.nextLine();
+            int marks = sc.nextInt();
+            sc.nextLine();
+            applicants.add(new Student(name, marks));
+        }
+        System.out.print("Enter cutoff marks: ");
+        int cutoff = sc.nextInt();
+        sc.nextLine();
+        for (Student s : applicants) {
+            if (s.marks >= cutoff) {
+                shortlisted.add(s);
+                interviewQ.add(s);
+            }
+        }
         System.out.println("Interview Process:");
-        while (!q.isEmpty()) {
-            Student s = q.remove();
-            System.out.println("Interviewed: " + s);
-            merit.add(s);
+        while (!interviewQ.isEmpty()) {
+            Student s = interviewQ.remove();
+            System.out.println("Select " + s.name + "? (yes/no)");
+            String ans = sc.nextLine();
+            if (ans.equalsIgnoreCase("yes")) merit.add(s);
         }
         System.out.println("Final Merit List:");
         for (Student s : merit) System.out.println(s);
