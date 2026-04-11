@@ -1,17 +1,4 @@
 import java.util.*;
-class Transaction {
-    int id;
-    String acc;
-    double amt;
-    Transaction(int id, String acc, double amt) {
-        this.id = id;
-        this.acc = acc;
-        this.amt = amt;
-    }
-    public String toString() {
-        return id + " " + acc + " " + amt;
-    }
-}
 class Account {
     String id;
     Account(String id) {
@@ -27,37 +14,62 @@ class Account {
         return Objects.hash(id);
     }
 }
+class Transaction {
+    String accId;
+    int amount;
+    Transaction(String accId, int amount) {
+        this.accId = accId;
+        this.amount = amount;
+    }
+    public String toString() {
+        return accId + " " + amount;
+    }
+}
 public class BankingTransactionSystem {
     public static void main(String[] args) {
-        List<Transaction> all = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+        Set<Account> accounts = new HashSet<>();
+        Map<String, Account> map = new HashMap<>();
         Queue<Transaction> q = new LinkedList<>();
-        Set<Account> accs = new HashSet<>();
-        accs.add(new Account("A1"));
-        accs.add(new Account("A2"));
         Stack<Transaction> st = new Stack<>();
-        q.add(new Transaction(1, "A1", 1000));
-        q.add(new Transaction(2, "A3", 2000));
-        q.add(new Transaction(3, "A2", 1500));
+        List<Transaction> history = new ArrayList<>();
+        System.out.print("Enter number of accounts: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < n; i++) {
+            String id = sc.nextLine();
+            Account a = new Account(id);
+            accounts.add(a);
+            map.put(id, a);
+        }
+        System.out.print("Enter number of transactions: ");
+        int m = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < m; i++) {
+            String id = sc.nextLine();
+            int amt = sc.nextInt();
+            sc.nextLine();
+            if (!map.containsKey(id)) {
+                System.out.println("Invalid account: " + id);
+                continue;
+            }
+            q.add(new Transaction(id, amt));
+        }
+        System.out.println("Processing Transactions:");
         while (!q.isEmpty()) {
             Transaction t = q.remove();
-            if (accs.contains(new Account(t.acc))) {
-
-                System.out.println("Processed: " + t);
-                all.add(t);
-                st.push(t);
-
-            }
-	    else System.out.println("Invalid Account: " + t);
+            System.out.println("Processed: " + t);
+            history.add(t);
+            st.push(t);
         }
-        System.out.println("Rollback Last Transaction:");
-        if (!st.isEmpty()) {
+        System.out.println("Rollback last transaction? (yes/no)");
+        String ans = sc.nextLine();
+        if (ans.equalsIgnoreCase("yes") && !st.isEmpty()) {
             Transaction t = st.pop();
-            all.remove(t);
-            System.out.println("Rolled Back: " + t);
+            history.remove(t);
+            System.out.println("Rolled back: " + t);
         }
         System.out.println("Final Transactions:");
-        for (Transaction t : all) {
-            System.out.println(t);
-        }
+        for (Transaction t : history) System.out.println(t);
     }
 }
