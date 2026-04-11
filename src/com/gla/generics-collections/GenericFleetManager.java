@@ -1,45 +1,38 @@
 import java.util.*;
-class Vehicle {
-    String n;
-    Vehicle(String n) {
-        this.n = n;
-    }
-    void show() {
-        System.out.println(n);
-    }
+abstract class Vehicle {
+    abstract String type();
 }
 class Truck extends Vehicle {
-    Truck(String n) {
-        super(n);
+    String type() {
+        return "Truck";
     }
 }
 class Bike extends Vehicle {
-    Bike(String n) {
-        super(n);
+    String type() {
+        return "Bike";
     }
 }
 class FleetManager<T extends Vehicle> {
-    ArrayList<T> l = new ArrayList<>();
+    List<T> list = new ArrayList<>();
     void addVehicle(T v) {
-        l.add(v);
+        list.add(v);
     }
     void showFleet() {
-        for (T i : l) {
-            i.show();
-        }
+        for (T v : list) System.out.println(v.type());
     }
 }
 public class GenericFleetManager {
     public static void main(String[] args) {
-        FleetManager<Truck> t = new FleetManager<>();
-        t.addVehicle(new Truck("Truck1"));
-        t.addVehicle(new Truck("Truck2"));
-        System.out.println("Truck Fleet:");
-        t.showFleet();
-        FleetManager<Bike> b = new FleetManager<>();
-        b.addVehicle(new Bike("Bike1"));
-        b.addVehicle(new Bike("Bike2"));
-        System.out.println("Bike Fleet:");
-        b.showFleet();
+        Scanner sc = new Scanner(System.in);
+        FleetManager<Truck> trucks = new FleetManager<>();
+        FleetManager<Bike> bikes = new FleetManager<>();
+        int n = sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            int ch = sc.nextInt();
+            if (ch == 1) trucks.addVehicle(new Truck());
+            else if (ch == 2) bikes.addVehicle(new Bike());
+        }
+        trucks.showFleet();
+        bikes.showFleet();
     }
 }
