@@ -1,11 +1,13 @@
 import java.util.*;
 public class CheckSetEquality {
-    static <T> boolean isEqual(Set<T> s1, Set<T> s2) {
-        return s1.equals(s2);
-    }
     public static void main(String[] args) {
-        Set<Integer> s1 = new HashSet<>(Arrays.asList(1, 2, 3));
-        Set<Integer> s2 = new HashSet<>(Arrays.asList(3, 2, 1));
-        System.out.println(isEqual(s1, s2));
+        Scanner sc = new Scanner(System.in);
+        Set<Integer> s1 = new HashSet<>();
+        Set<Integer> s2 = new HashSet<>();
+        int n1 = sc.nextInt();
+        for (int i = 0; i < n1; i++) s1.add(sc.nextInt());
+        int n2 = sc.nextInt();
+        for (int i = 0; i < n2; i++) s2.add(sc.nextInt());
+        System.out.println(s1.equals(s2));
     }
 }
