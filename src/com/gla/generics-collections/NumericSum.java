@@ -1,16 +1,15 @@
 import java.util.*;
-public class NumericSum {
-    static double sumNumbers(List<? extends Number> l) {
-        double s = 0;
-        for (Number n : l) {
-            s += n.doubleValue();
-        }
-        return s;
+public class CopyListElements {
+    static void copyList(List<? super Number> dest, List<? extends Number> src) {
+        for (Number n : src) dest.add(n);
     }
     public static void main(String[] args) {
-        List<Integer> l1 = Arrays.asList(1, 2, 3, 4);
-        System.out.println(sumNumbers(l1));
-        List<Double> l2 = Arrays.asList(1.5, 2.5, 3.5);
-        System.out.println(sumNumbers(l2));
+        List<Integer> src = new ArrayList<>();
+        src.add(10);
+        src.add(20);
+        src.add(30);
+        List<Number> dest = new ArrayList<>();
+        copyList(dest, src);
+        System.out.println(dest);
     }
 }
