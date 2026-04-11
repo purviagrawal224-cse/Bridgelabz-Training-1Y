@@ -1,9 +1,8 @@
 import java.util.*;
 class Product {
     String name;
-    double price;
-    int stock;
-    Product(String name, double price, int stock) {
+    int price, stock;
+    Product(String name, int price, int stock) {
         this.name = name;
         this.price = price;
         this.stock = stock;
@@ -12,37 +11,49 @@ class Product {
         return name + " " + price + " " + stock;
     }
 }
-public class InventoryRestockManagement {
+public class InventoryAndRestockManagementSystem {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         Set<String> names = new HashSet<>();
-        List<Product> products = new ArrayList<>();
+        List<Product> list = new ArrayList<>();
         Queue<Product> restockQ = new LinkedList<>();
         Stack<Product> st = new Stack<>();
-        Product p1 = new Product("Milk", 50, 2);
-        Product p2 = new Product("Bread", 30, 10);
-        Product p3 = new Product("Eggs", 60, 1);
-        Product p4 = new Product("Milk", 50, 5);
-        if (names.add(p1.name)) products.add(p1);
-        if (names.add(p2.name)) products.add(p2);
-        if (names.add(p3.name)) products.add(p3);
-        if (names.add(p4.name)) products.add(p4);
-        for (Product p : products) {
-            if (p.stock < 5) restockQ.add(p);
+        System.out.print("Enter number of products: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < n; i++) {
+            String name = sc.nextLine();
+            int price = sc.nextInt();
+            int stock = sc.nextInt();
+            sc.nextLine();
+            if (!names.add(name)) {
+                System.out.println("Duplicate product ignored: " + name);
+                continue;
+            }
+            Product p = new Product(name, price, stock);
+            list.add(p);
+            if (stock < 5) restockQ.add(p);
         }
-        System.out.println("Restocking:");
+        System.out.println("Restocking Products:");
         while (!restockQ.isEmpty()) {
             Product p = restockQ.remove();
-            p.stock += 10;
-            System.out.println("Restocked: " + p);
+            System.out.println("Enter restock amount for " + p.name + ":");
+            int add = sc.nextInt();
+            sc.nextLine();
+            p.stock += add;
             st.push(p);
+            System.out.println("Updated: " + p);
         }
-        System.out.println("Undo Last Restock:");
-        if (!st.isEmpty()) {
+        System.out.println("Undo last restock? (yes/no)");
+        String ans = sc.nextLine();
+        if (ans.equalsIgnoreCase("yes") && !st.isEmpty()) {
             Product p = st.pop();
-            p.stock -= 10;
-            System.out.println("Rolled Back: " + p);
+            System.out.println("Enter amount to rollback for " + p.name + ":");
+            int sub = sc.nextInt();
+            p.stock -= sub;
+            System.out.println("After rollback: " + p);
         }
         System.out.println("Final Products:");
-        for (Product p : products) System.out.println(p);
+        for (Product p : list) System.out.println(p);
     }
 }
