@@ -1,17 +1,27 @@
 import java.util.*;
-public class NthElementFromEnd {
-    static <T> T findNthFromEnd(LinkedList<T> l, int n) {
-        Iterator<T> fast = l.iterator();
-        Iterator<T> slow = l.iterator();
-        for (int i = 0; i < n; i++) fast.next();
+public class NthFromEnd {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        LinkedList<String> list = new LinkedList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < n; i++) {
+            list.add(sc.nextLine());
+        }
+        int k = sc.nextInt();
+        Iterator<String> fast = list.iterator();
+        Iterator<String> slow = list.iterator();
+        for (int i = 0; i < k; i++) {
+            if (fast.hasNext()) fast.next();
+            else {
+                System.out.println("Invalid");
+                return;
+            }
+        }
         while (fast.hasNext()) {
             fast.next();
             slow.next();
         }
-        return slow.next();
-    }
-    public static void main(String[] args) {
-        LinkedList<String> l = new LinkedList<>(Arrays.asList("A", "B", "C", "D", "E"));
-        System.out.println(findNthFromEnd(l, 2));
+        System.out.println(slow.next());
     }
 }
