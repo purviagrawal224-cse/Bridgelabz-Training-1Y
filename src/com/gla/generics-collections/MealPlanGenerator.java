@@ -1,71 +1,48 @@
 import java.util.*;
 interface MealPlan {
-    void show();
+    String getType();
 }
 class VegetarianMeal implements MealPlan {
-    String n;
-    VegetarianMeal(String n) {
-        this.n = n;
-    }
-    public void show() {
-        System.out.println("Vegetarian: " + n);
+    public String getType() {
+        return "Vegetarian";
     }
 }
 class VeganMeal implements MealPlan {
-    String n;
-    VeganMeal(String n) {
-        this.n = n;
-    }
-    public void show() {
-        System.out.println("Vegan: " + n);
+    public String getType() {
+        return "Vegan";
     }
 }
 class KetoMeal implements MealPlan {
-    String n;
-    KetoMeal(String n) {
-        this.n = n;
-    }
-    public void show() {
-        System.out.println("Keto: " + n);
+    public String getType() {
+        return "Keto";
     }
 }
 class HighProteinMeal implements MealPlan {
-    String n;
-    HighProteinMeal(String n) {
-        this.n = n;
-    }
-    public void show() {
-        System.out.println("HighProtein: " + n);
+    public String getType() {
+        return "HighProtein";
     }
 }
 class Meal<T extends MealPlan> {
-    ArrayList<T> l = new ArrayList<>();
-    void addMeal(T x) {
-        l.add(x);
+    T plan;
+    Meal(T plan) {
+        this.plan = plan;
     }
-    void displayMeals() {
-        for (T i : l) {
-            i.show();
-        }
+    void show() {
+        System.out.println("Meal Plan: " + plan.getType());
     }
 }
 public class MealPlanGenerator {
-    static <T extends MealPlan> void generateMeal(T m) {
+    static <T extends MealPlan> void generateMeal(T plan) {
+        Meal<T> m = new Meal<>(plan);
         m.show();
     }
     public static void main(String[] args) {
-        Meal<VegetarianMeal> v = new Meal<>();
-        v.addMeal(new VegetarianMeal("Salad"));
-        v.addMeal(new VegetarianMeal("Paneer"));
-        Meal<VeganMeal> vg = new Meal<>();
-        vg.addMeal(new VeganMeal("Tofu"));
-        vg.addMeal(new VeganMeal("Smoothie"));
-        System.out.println("Vegetarian Meals:");
-        v.displayMeals();
-        System.out.println("Vegan Meals:");
-        vg.displayMeals();
-        System.out.println("Generated Meal:");
-        generateMeal(new KetoMeal("Keto Salad"));
-        generateMeal(new HighProteinMeal("Chicken Bowl"));
+        Scanner sc = new Scanner(System.in);
+        int ch = sc.nextInt();
+        if (ch == 1) generateMeal(new VegetarianMeal());
+        else if (ch == 2) generateMeal(new VeganMeal());
+        else if (ch == 3) generateMeal(new KetoMeal());
+        else if (ch == 4) generateMeal(new HighProteinMeal());
+        else System.out.println("Invalid Choice");
     }
 }
