@@ -1,40 +1,37 @@
 import java.util.*;
 class Product {
-    double p;
-    Product(double p) {
-        this.p = p;
+    double price;
+    Product(double price) {
+        this.price = price;
     }
     double getPrice() {
-        return p;
+        return price;
     }
 }
 class Mobile extends Product {
-    Mobile(double p) {
-        super(p);
+    Mobile(double price) {
+        super(price);
     }
 }
 class Laptop extends Product {
-    Laptop(double p) {
-        super(p);
+    Laptop(double price) {
+        super(price);
     }
 }
 public class PriceCalculator {
     static double calculateTotal(List<? extends Product> items) {
-        double s = 0;
-        for (Product x : items) {
-            s += x.getPrice();
-        }
-        return s;
+        double sum = 0;
+        for (Product p : items) sum += p.getPrice();
+        return sum;
     }
     public static void main(String[] args) {
-        List<Mobile> m = Arrays.asList(
-                new Mobile(10000),
-                new Mobile(20000)
-        );
-        List<Laptop> l = Arrays.asList(
-                new Laptop(50000),
-                new Laptop(70000)
-        );
+        Scanner sc = new Scanner(System.in);
+        List<Mobile> m = new ArrayList<>();
+        List<Laptop> l = new ArrayList<>();
+        int n1 = sc.nextInt();
+        for (int i = 0; i < n1; i++) m.add(new Mobile(sc.nextDouble()));
+        int n2 = sc.nextInt();
+        for (int i = 0; i < n2; i++) l.add(new Laptop(sc.nextDouble()));
         System.out.println(calculateTotal(m));
         System.out.println(calculateTotal(l));
     }
