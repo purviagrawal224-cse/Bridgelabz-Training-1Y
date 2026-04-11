@@ -25,12 +25,17 @@ public class AnimalHierarchy {
         }
     }
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         List<Dog> dogs = new ArrayList<>();
-        dogs.add(new Dog("Tommy"));
-        dogs.add(new Dog("Rocky"));
         List<Cat> cats = new ArrayList<>();
-        cats.add(new Cat("Kitty"));
-        cats.add(new Cat("Mimi"));
+        int n = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < n; i++) {
+            int ch = sc.nextInt();
+            sc.nextLine();
+            if (ch == 1) dogs.add(new Dog(sc.nextLine()));
+            else if (ch == 2) cats.add(new Cat(sc.nextLine()));
+        }
         printAnimals(dogs);
         printAnimals(cats);
     }
