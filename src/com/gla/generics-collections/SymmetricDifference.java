@@ -1,16 +1,18 @@
 import java.util.*;
 public class SymmetricDifference {
-    static <T> Set<T> symDiff(Set<T> s1, Set<T> s2) {
-        Set<T> u = new HashSet<>(s1);
-        u.addAll(s2);
-        Set<T> i = new HashSet<>(s1);
-        i.retainAll(s2);
-        u.removeAll(i);
-        return u;
-    }
     public static void main(String[] args) {
-        Set<Integer> s1 = new HashSet<>(Arrays.asList(1, 2, 3));
-        Set<Integer> s2 = new HashSet<>(Arrays.asList(3, 4, 5));
-        System.out.println(symDiff(s1, s2));
+        Scanner sc = new Scanner(System.in);
+        Set<Integer> s1 = new HashSet<>();
+        Set<Integer> s2 = new HashSet<>();
+        int n1 = sc.nextInt();
+        for (int i = 0; i < n1; i++) s1.add(sc.nextInt());
+        int n2 = sc.nextInt();
+        for (int i = 0; i < n2; i++) s2.add(sc.nextInt());
+        Set<Integer> res = new HashSet<>(s1);
+        res.addAll(s2);
+        Set<Integer> inter = new HashSet<>(s1);
+        inter.retainAll(s2);
+        res.removeAll(inter);
+        System.out.println(res);
     }
 }
