@@ -1,16 +1,15 @@
 import java.util.*;
-public class RotateElements {
-    static <T> void rotate(List<T> l, int k) {
-        int n = l.size();
-        k = k % n;
-        List<T> temp = new ArrayList<>();
-        for(int i = k; i < n; i++) temp.add(l.get(i));
-        for(int i = 0; i < k; i++) temp.add(l.get(i));
-        for(int i = 0; i < n; i++) l.set(i, temp.get(i));
-    }
+public class RotateList {
     public static void main(String[] args) {
-        List<Integer> l = new ArrayList<>(Arrays.asList(10, 20, 30, 40, 50));
-        rotate(l, 2);
-        System.out.println(l);
+        Scanner sc = new Scanner(System.in);
+        List<Integer> list = new ArrayList<>();
+        int n = sc.nextInt();
+        for (int i = 0; i < n; i++) list.add(sc.nextInt());
+        int k = sc.nextInt();
+        k = k % n;
+        List<Integer> res = new ArrayList<>();
+        for (int i = k; i < n; i++) res.add(list.get(i));
+        for (int i = 0; i < k; i++) res.add(list.get(i));
+        System.out.println(res);
     }
 }
