@@ -1,47 +1,43 @@
 import java.util.*;
 class Electronics {
-    String n;
-    Electronics(String n) {
-        this.n = n;
+    String name;
+    Electronics(String name) {
+        this.name = name;
     }
     public String toString() {
-        return n;
+        return "Electronics: " + name;
     }
 }
 class Clothing {
-    String n;
-    Clothing(String n) {
-        this.n = n;
+    String name;
+    Clothing(String name) {
+        this.name = name;
     }
     public String toString() {
-        return n;
+        return "Clothing: " + name;
     }
 }
 class Cart<T> {
-    ArrayList<T> l = new ArrayList<>();
-    void addItem(T x) {
-        l.add(x);
+    List<T> list = new ArrayList<>();
+    void addItem(T item) {
+        list.add(item);
     }
-    void removeItem(T x) {
-        l.remove(x);
+    void removeItem(T item) {
+        list.remove(item);
     }
     void displayItems() {
-        for (T i : l) {
-            System.out.println(i);
-        }
+        for (T i : list) System.out.println(i);
     }
 }
 public class GenericCart {
     public static void main(String[] args) {
-        Cart<Electronics> e = new Cart<>();
-        e.addItem(new Electronics("Laptop"));
-        e.addItem(new Electronics("Phone"));
-        System.out.println("Electronics Cart:");
-        e.displayItems();
-        Cart<Clothing> c = new Cart<>();
-        c.addItem(new Clothing("Shirt"));
-        c.addItem(new Clothing("Jeans"));
-        System.out.println("Clothing Cart:");
-        c.displayItems();
+        Cart<Electronics> eCart = new Cart<>();
+        Cart<Clothing> cCart = new Cart<>();
+        eCart.addItem(new Electronics("Mobile"));
+        eCart.addItem(new Electronics("Laptop"));
+        cCart.addItem(new Clothing("Shirt"));
+        cCart.addItem(new Clothing("Jeans"));
+        eCart.displayItems();
+        cCart.displayItems();
     }
 }
