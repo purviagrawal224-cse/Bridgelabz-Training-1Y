@@ -1,19 +1,11 @@
 import java.util.*;
-class RideRequest {
-    String user;
-    int priority;
-    RideRequest(String user, int priority) {
-        this.user = user;
-        this.priority = priority;
-    }
-    public String toString() {
-        return user + " (P:" + priority + ")";
-    }
-}
 class Driver {
     String name;
     Driver(String name) {
         this.name = name;
+    }
+    public String toString() {
+        return name;
     }
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -24,8 +16,19 @@ class Driver {
     public int hashCode() {
         return Objects.hash(name);
     }
+}
+class RideRequest implements Comparable<RideRequest> {
+    String user;
+    int priority;
+    RideRequest(String user, int priority) {
+        this.user = user;
+        this.priority = priority;
+    }
+    public int compareTo(RideRequest o) {
+        return o.priority - this.priority;
+    }
     public String toString() {
-        return name;
+        return user + " (P=" + priority + ")";
     }
 }
 class Ride {
@@ -41,27 +44,44 @@ class Ride {
 }
 public class RideSharingDispatchSystem {
     public static void main(String[] args) {
-        Queue<RideRequest> q = new LinkedList<>();
-        PriorityQueue<RideRequest> pq = new PriorityQueue<>(
-            (a, b) -> b.priority - a.priority
-        );
+        Scanner sc = new Scanner(System.in);
         Set<Driver> drivers = new HashSet<>();
-        drivers.add(new Driver("D1"));
-        drivers.add(new Driver("D2"));
-
-        List<Ride> history = new ArrayList<>();
-        q.add(new RideRequest("U1", 2));
-        q.add(new RideRequest("U2", 5));
-        q.add(new RideRequest("U3", 1));
-        pq.addAll(q);
-        while (!pq.isEmpty() && !drivers.isEmpty()) {
-            RideRequest r = pq.poll();
-            Driver d = drivers.iterator().next();
-            drivers.remove(d);
-            System.out.println("Assigned: " + r + " -> " + d);
-            history.add(new Ride(r.user, d.name));
+        Queue<RideRequest> normalQ = new LinkedList<>();
+        PriorityQueue<RideRequest> pq = new PriorityQueue<>();
+        List<Ride> completed = new ArrayList<>();
+        System.out.print("Enter number of drivers: ");
+        int d = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < d; i++) {
+            String name = sc.nextLine();
+            drivers.add(new Driver(name));
+        }
+        System.out.print("Enter number of ride requests: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < n; i++) {
+            String user = sc.nextLine();
+            int p = sc.nextInt();
+            sc.nextLine();
+            RideRequest r = new RideRequest(user, p);
+            if (p > 5) pq.add(r);
+            else normalQ.add(r);
+        }
+        System.out.println("Assigning Rides:");
+        Iterator<Driver> it = drivers.iterator();
+        while (!pq.isEmpty() && it.hasNext()) {
+            RideRequest r = pq.remove();
+            Driver dr = it.next();
+            System.out.println("Assigned (Priority): " + r + " -> " + dr);
+            completed.add(new Ride(r.user, dr.name));
+        }
+        while (!normalQ.isEmpty() && it.hasNext()) {
+            RideRequest r = normalQ.remove();
+            Driver dr = it.next();
+            System.out.println("Assigned: " + r + " -> " + dr);
+            completed.add(new Ride(r.user, dr.name));
         }
         System.out.println("Completed Rides:");
-        for (Ride r : history) System.out.println(r);
+        for (Ride r : completed) System.out.println(r);
     }
 }
