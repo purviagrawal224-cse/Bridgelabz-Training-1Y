@@ -1,11 +1,15 @@
 import java.util.*;
 public class CustomerFeedbackAnalysis {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         List<String> all = new ArrayList<>();
-        all.add("Good service");
-        all.add("Fast delivery");
-        all.add("Good service");
-        all.add("Nice app");
+        System.out.print("Enter number of feedbacks: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < n; i++) {
+            String s = sc.nextLine();
+            all.add(s);
+        }
         Set<String> unique = new LinkedHashSet<>(all);
         Queue<String> q = new LinkedList<>(unique);
         Stack<String> st = new Stack<>();
@@ -15,8 +19,9 @@ public class CustomerFeedbackAnalysis {
             System.out.println("Processed: " + s);
             st.push(s);
         }
+        System.out.print("Enter how many recent feedbacks to show: ");
+        int k = sc.nextInt();
         System.out.println("Recent Feedbacks:");
-        int k = 2;
         while (k-- > 0 && !st.isEmpty()) System.out.println(st.pop());
     }
 }
