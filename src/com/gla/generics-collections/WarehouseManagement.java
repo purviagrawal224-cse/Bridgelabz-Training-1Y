@@ -1,58 +1,52 @@
 import java.util.*;
 abstract class WarehouseItem {
-    String n;
-    WarehouseItem(String n) {
-        this.n = n;
-    }
-    void show() {
-        System.out.println(n);
-    }
+    abstract String type();
 }
 class Electronics extends WarehouseItem {
-    Electronics(String n) {
-        super(n);
+    String type() {
+        return "Electronics";
     }
 }
 class Groceries extends WarehouseItem {
-    Groceries(String n) {
-        super(n);
+    String type() {
+        return "Groceries";
     }
 }
 class Furniture extends WarehouseItem {
-    Furniture(String n) {
-        super(n);
+    String type() {
+        return "Furniture";
     }
 }
 class Storage<T extends WarehouseItem> {
-    ArrayList<T> l = new ArrayList<>();
-    void addItem(T x) {
-        l.add(x);
+    List<T> items = new ArrayList<>();
+    void add(T item) {
+        items.add(item);
     }
-    void displayItems() {
-        for (T i : l) {
-            i.show();
-        }
+    void show() {
+        for (T i : items) System.out.println(i.type());
     }
 }
 public class WarehouseManagement {
-    static void displayAll(Storage<? extends WarehouseItem> s) {
-        s.displayItems();
+    static void displayAll(List<? extends WarehouseItem> list) {
+        for (WarehouseItem i : list) System.out.println("Item: " + i.type());
     }
     public static void main(String[] args) {
-        Storage<Electronics> e = new Storage<>();
-        e.addItem(new Electronics("TV"));
-        e.addItem(new Electronics("Laptop"));
-        Storage<Groceries> g = new Storage<>();
-        g.addItem(new Groceries("Rice"));
-        g.addItem(new Groceries("Milk"));
-        Storage<Furniture> f = new Storage<>();
-        f.addItem(new Furniture("Chair"));
-        f.addItem(new Furniture("Table"));
-        System.out.println("Electronics:");
-        displayAll(e);
-        System.out.println("Groceries:");
-        displayAll(g);
-        System.out.println("Furniture:");
-        displayAll(f);
+        Scanner sc = new Scanner(System.in);
+        Storage<WarehouseItem> storage = new Storage<>();
+        List<WarehouseItem> all = new ArrayList<>();
+        int n = sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            int ch = sc.nextInt();
+            WarehouseItem item = null;
+            if (ch == 1) item = new Electronics();
+            else if (ch == 2) item = new Groceries();
+            else if (ch == 3) item = new Furniture();
+            if (item != null) {
+                storage.add(item);
+                all.add(item);
+            }
+        }
+        storage.show();
+        displayAll(all);
     }
 }
