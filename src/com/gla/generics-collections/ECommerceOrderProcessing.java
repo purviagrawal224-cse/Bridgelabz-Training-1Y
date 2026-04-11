@@ -1,44 +1,52 @@
 import java.util.*;
 class Order {
-    int id;
-    String item;
-    Order(int id, String item) {
+    String id;
+    Order(String id) {
         this.id = id;
-        this.item = item;
+    }
+    public String toString() {
+        return id;
     }
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Order)) return false;
-        Order x = (Order) o;
-        return id == x.id;
+        Order ob = (Order) o;
+        return id.equals(ob.id);
     }
     public int hashCode() {
         return Objects.hash(id);
     }
-    public String toString() {
-        return id + " " + item;
-    }
 }
-public class ECommerceOrderProcessing {
+public class ECommerceOrderProcessingSystem {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         List<Order> all = new ArrayList<>();
-        all.add(new Order(1, "Laptop"));
-        all.add(new Order(2, "Phone"));
-        all.add(new Order(1, "Laptop"));
-        all.add(new Order(3, "Tablet"));
-        Set<Order> unique = new LinkedHashSet<>(all);
-        Queue<Order> q = new LinkedList<>(unique);
-        Stack<Order> st = new Stack<>();
+        Set<Order> unique = new LinkedHashSet<>();
+        Queue<Order> q = new LinkedList<>();
+        Stack<Order> failed = new Stack<>();
+        System.out.print("Enter number of orders: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < n; i++) {
+            String id = sc.nextLine();
+            all.add(new Order(id));
+        }
+        for (Order o : all) {
+            if (!unique.add(o)) System.out.println("Duplicate order removed: " + o);
+        }
+        q.addAll(unique);
         System.out.println("Processing Orders:");
         while (!q.isEmpty()) {
             Order o = q.remove();
-            if (o.id % 2 == 0) {
-                System.out.println("Failed: " + o);
-                st.push(o);
-            }
-	    else System.out.println("Processed: " + o);
+            System.out.println("Process " + o + "? (success/fail)");
+            String ans = sc.nextLine();
+            if (ans.equalsIgnoreCase("fail")) failed.push(o);
+            else System.out.println("Completed: " + o);
         }
-        System.out.println("Reprocessing Failed Orders:");
-        while (!st.isEmpty()) System.out.println("Processed: " + st.pop());
+        System.out.println("Re-processing Failed Orders:");
+        while (!failed.isEmpty()) {
+            Order o = failed.pop();
+            System.out.println("Retry: " + o);
+        }
     }
 }
