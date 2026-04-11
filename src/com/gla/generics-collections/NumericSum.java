@@ -1,15 +1,19 @@
 import java.util.*;
-public class CopyListElements {
-    static void copyList(List<? super Number> dest, List<? extends Number> src) {
-        for (Number n : src) dest.add(n);
+public class NumericSum {
+    static double sumNumbers(List<? extends Number> list) {
+        double sum = 0;
+        for (Number n : list) sum += n.doubleValue();
+        return sum;
     }
     public static void main(String[] args) {
-        List<Integer> src = new ArrayList<>();
-        src.add(10);
-        src.add(20);
-        src.add(30);
-        List<Number> dest = new ArrayList<>();
-        copyList(dest, src);
-        System.out.println(dest);
+        Scanner sc = new Scanner(System.in);
+        List<Integer> li = new ArrayList<>();
+        List<Double> ld = new ArrayList<>();
+        int n1 = sc.nextInt();
+        for (int i = 0; i < n1; i++) li.add(sc.nextInt());
+        int n2 = sc.nextInt();
+        for (int i = 0; i < n2; i++) ld.add(sc.nextDouble());
+        System.out.println(sumNumbers(li));
+        System.out.println(sumNumbers(ld));
     }
 }
