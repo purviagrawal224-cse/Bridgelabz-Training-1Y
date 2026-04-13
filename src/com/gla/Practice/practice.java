@@ -8,9 +8,7 @@ public class Practice {
         String s = sc.next();
         String t = sc.next();
         int[] freq = new int[256];
-        for(char ch : t.toCharArray()){
-            freq[ch]++;
-        }
+        for(char ch : t.toCharArray()) freq[ch]++;
         int i = 0, count = 0;
         int minLen = Integer.MAX_VALUE, start = 0;
         for(int j = 0; j < s.length(); j++){
