@@ -1,0 +1,32 @@
+import java.util.Scanner;
+
+public class start {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        String t = sc.next();
+        int[] freq = new int[256];
+        for(char ch : t.toCharArray()){
+            freq[ch]++;
+        }
+        int i = 0, count = 0;
+        int minLen = Integer.MAX_VALUE, start = 0;
+        for(int j = 0; j < s.length(); j++){
+            char ch = s.charAt(j);
+            if(freq[ch] > 0) count++;
+            freq[ch]--;
+            while(count == t.length()){
+                if(j - i + 1 < minLen){
+                    minLen = j - i + 1;
+                    start = i;
+                }
+                char left = s.charAt(i);
+                freq[left]++;
+                if(freq[left] > 0) count--;
+                i++;
+            }
+        }
+        if(minLen == Integer.MAX_VALUE) System.out.println("");
+        else System.out.println(s.substring(start, start + minLen));
+    }
+}
