@@ -9,7 +9,7 @@ public class CensorWords {
         int n = sc.nextInt();
         sc.nextLine();
         List<String> l = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
+        for(int i = 0; i < n; i++) {
             System.out.println("Enter bad word:");
             String w = sc.nextLine();
             l.add(w);
