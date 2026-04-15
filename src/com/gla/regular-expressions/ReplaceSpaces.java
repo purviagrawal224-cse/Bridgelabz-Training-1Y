@@ -5,7 +5,7 @@ public class ReplaceSpaces {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter text:");
         String s = sc.nextLine();
-        s = s.replaceAll("\\s+", " ");
+        s = s.replaceAll("\\s+"," ");
         System.out.println(s);
         sc.close();
     }
