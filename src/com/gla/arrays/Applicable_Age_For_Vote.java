@@ -1,8 +1,6 @@
-package com.gla.arrays;
-
 import java.util.Scanner;
 
-public class Applicable_For_Vote {
+public class Applicable_Age_For_Vote {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
